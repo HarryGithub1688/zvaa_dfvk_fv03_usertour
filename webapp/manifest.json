@@ -60,7 +60,8 @@
         "sap.m": {},
         "sap.ui.core": {},
         "sap.ushell": {},
-        "sap.fe.templates": {}
+        "sap.fe.templates": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -93,17 +94,28 @@
       "css": []
     },
     "routing": {
-      "config": {},
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
       "routes": [
         {
           "pattern": ":?query:",
           "name": "UserTourList",
-          "target": "UserTourList"
+          "target": [
+            "UserTourList"
+          ]
         },
         {
           "pattern": "UserTour({key}):?query:",
           "name": "UserTourObjectPage",
-          "target": "UserTourObjectPage"
+          "target": [
+            "UserTourList",
+            "UserTourObjectPage"
+          ]
         }
       ],
       "targets": {
@@ -127,10 +139,26 @@
                   "tableSettings": {
                     "type": "ResponsiveTable"
                   }
+                },
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                  "useSemanticDateRange":true,
+                  "filterFields": {
+                    "DeliveryDate": {
+                      "settings": {
+                        "defaultValues": [
+                          {
+                            "operator": "TODAY"
+                          }
+                        ]
+                      }
+                    }
+                  }
                 }
               }
             }
-          }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
         },
         "UserTourObjectPage": {
           "type": "Component",
@@ -141,9 +169,17 @@
               "editableHeaderContent": false,
               "contextPath": "/UserTour"
             }
-          }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/UserTour({key})"
         }
       }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
     }
   },
   "sap.fiori": {
