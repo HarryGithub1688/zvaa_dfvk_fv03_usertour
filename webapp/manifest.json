@@ -61,7 +61,8 @@
         "sap.ui.core": {},
         "sap.ushell": {},
         "sap.fe.templates": {},
-        "sap.f": {}
+        "sap.f": {},
+        "sap.ui.comp": {}
       }
     },
     "contentDensities": {
@@ -90,8 +91,21 @@
         "uri": "i18n/i18n.properties"
       }
     },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "hab.zvaadfvk00001.ext.controller.ListReportExt"
+          },
+          "sap.fe.templates.ObjectPage.ObjectPageController": {
+            "controllerName": "hab.zvaadfvk00001.ext.controller.ObjectPageExt"
+          }
+        },
+        "sap.ui.viewExtensions": {}
+      }
+    },
     "resources": {
-      "css": []
+      "css": [{"uri": "css/style.css"}]
     },
     "routing": {
       "config": {
@@ -141,18 +155,7 @@
                   }
                 },
                 "@com.sap.vocabularies.UI.v1.SelectionFields": {
-                  "useSemanticDateRange":true,
-                  "filterFields": {
-                    "DeliveryDate": {
-                      "settings": {
-                        "defaultValues": [
-                          {
-                            "operator": "TODAY"
-                          }
-                        ]
-                      }
-                    }
-                  }
+                  "useSemanticDateRange":true
                 }
               }
             }
