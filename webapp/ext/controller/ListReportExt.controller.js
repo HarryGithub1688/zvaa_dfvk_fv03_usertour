@@ -5,6 +5,8 @@ sap.ui.define([], function () {
 		
 		onAfterRendering: function () {
 			this.newFilterDate();
+			//this.newDrafColumn();
+			this.columnsConfig();
 		},
 
 		newFilterDate: function () {
@@ -27,10 +29,43 @@ sap.ui.define([], function () {
 			//var formatDateForFilter = today.toLocaleDateString().split("/")[2] + "-" + today.toLocaleDateString().split("/")[1] + "-" + today.toLocaleDateString().split("/")[0];
 
 			listReportFilter.attachSearch(function (env) {
-				var formatDateForFilter = dateFilter.getContent().getDateValue().toLocaleDateString().split("/")[2] + "-" + dateFilter.getContent().getDateValue().toLocaleDateString().split("/")[1] + "-" + dateFilter.getContent().getDateValue().toLocaleDateString().split("/")[0];
-				listReport.getContent().getContent()._oTable.getBinding("items").filter((new sap.ui.model.Filter("DeliveryDate", sap.ui.model.FilterOperator.EQ, formatDateForFilter)))
+				if (dateFilter.getContent().getDateValue() != null) {
+					var formatDateForFilter = dateFilter.getContent().getDateValue().toLocaleDateString().split("/")[2] + "-" + dateFilter.getContent().getDateValue().toLocaleDateString().split("/")[1] + "-" + dateFilter.getContent().getDateValue().toLocaleDateString().split("/")[0];
+					listReport.getContent().getContent()._oTable.getBinding("items").filter((new sap.ui.model.Filter("DeliveryDate", sap.ui.model.FilterOperator.EQ, formatDateForFilter)));
+				}
 			}.bind(this));
 
+			/* dateFilter.getContent().attachChange(function (env) {
+				debugger
+				var multiInput = new sap.m.MultiInput({})
+				var token = new sap.m.Token({})
+				var tokenizer = new sap.m.Tokenizer({})
+			}.bind(this)); */
+
+		},
+
+		newDrafColumn: function () {
+			/* var listReport = this.getView().byId("hab.zvaadfvk00001::UserTourList--fe::ListReport");
+			var newDrafColumn = new sap.m.Column({ header: new sap.m.Label({ text:"hi" }) });
+			listReport.getContent().getContent().addColumn(newDrafColumn); */
+		},
+
+		columnsConfig: function () {
+			var listReport = this.getView().byId("hab.zvaadfvk00001::UserTourList--fe::ListReport");
+			var drafColumn = listReport.getContent().getContent().getColumns().find(e => e.sId.includes("DraftColumn"));
+			var tourIdColumn = listReport.getContent().getContent().getColumns().find(e => e.sId.includes("TourId"));
+			var userIdColumn = listReport.getContent().getContent().getColumns().find(e => e.sId.includes("UserId"));
+			var lastChangedAtColumn = listReport.getContent().getContent().getColumns().find(e => e.sId.includes("LastChangedAt"));
+
+			//reorder drafColumn
+			listReport.getContent().getContent().removeColumn(drafColumn, true);
+			listReport.getContent().getContent().insertColumn(drafColumn, 4);
+
+			//set width
+			//listReport.getContent().getContent().setEnableAutoColumnWidth(true);
+			tourIdColumn.setWidth("40mm");
+			userIdColumn.setWidth("40mm");
+			lastChangedAtColumn.setWidth("auto");
 		}
 
 	});
