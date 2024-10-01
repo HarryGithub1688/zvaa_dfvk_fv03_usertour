@@ -10,9 +10,9 @@ sap.ui.define([], function () {
 		},
 
 		newFilterDate: function () {
-			var listReport = this.getView().byId("hab.zvaadfvk00001::UserTourList--fe::ListReport");
-			var listReportFilter = this.getView().byId("hab.zvaadfvk00001::UserTourList--fe::FilterBar::UserTour");
-			var dateFilter = this.getView().byId("hab.zvaadfvk00001::UserTourList--fe::FilterBar::UserTour::FilterField::DeliveryDate");
+			var listReport = this.getView().byId("fe::ListReport");
+			var listReportFilter = this.getView().byId("fe::FilterBar::UserTour");
+			var dateFilter = this.getView().byId("fe::FilterBar::UserTour::FilterField::DeliveryDate");
 
 			if (new Date().getHours() > 19) {
 				var today = new Date();
@@ -45,13 +45,13 @@ sap.ui.define([], function () {
 		},
 
 		newDrafColumn: function () {
-			/* var listReport = this.getView().byId("hab.zvaadfvk00001::UserTourList--fe::ListReport");
+			/* var listReport = this.getView().byId("fe::ListReport");
 			var newDrafColumn = new sap.m.Column({ header: new sap.m.Label({ text:"hi" }) });
 			listReport.getContent().getContent().addColumn(newDrafColumn); */
 		},
 
 		columnsConfig: function () {
-			var listReport = this.getView().byId("hab.zvaadfvk00001::UserTourList--fe::ListReport");
+			var listReport = this.getView().byId("fe::ListReport");
 			var drafColumn = listReport.getContent().getContent().getColumns().find(e => e.sId.includes("DraftColumn"));
 			var tourIdColumn = listReport.getContent().getContent().getColumns().find(e => e.sId.includes("TourId"));
 			var userIdColumn = listReport.getContent().getContent().getColumns().find(e => e.sId.includes("UserId"));
